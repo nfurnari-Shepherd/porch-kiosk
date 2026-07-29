@@ -37,10 +37,7 @@ export default async function Home() {
               <Link
                 key={service.id}
                 href={`/service/${service.id}`}
-                className="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center justify-center gap-3 min-h-44 active:scale-95 transition-all border-2 border-transparent hover:shadow-xl"
-                style={{'--tw-border-opacity': 1}}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--brand)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'transparent'}
+                className="service-card bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center justify-center gap-3 min-h-44 active:scale-95 transition-all border-2 border-transparent hover:shadow-xl"
               >
                 <span className="text-7xl leading-none">{service.icon}</span>
                 <span className="text-2xl font-bold text-stone-800 text-center leading-tight">

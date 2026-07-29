@@ -34,3 +34,7 @@ input, textarea {
   -webkit-user-select: text;
   user-select: text;
 }
+
+.service-card:hover {
+  border-color: var(--brand);
+}
