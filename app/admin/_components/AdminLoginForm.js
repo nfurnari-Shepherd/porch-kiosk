@@ -17,7 +17,7 @@ export default function AdminLoginForm() {
           name="password"
           required
           autoFocus
-          className="w-full border border-stone-300 rounded-lg px-4 py-3 text-lg focus:outline-none focus:border-amber-500"
+          className="w-full border border-stone-300 rounded-lg px-4 py-3 text-lg focus:outline-none"
         />
       </div>
 
@@ -28,7 +28,8 @@ export default function AdminLoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-lg transition-colors disabled:opacity-60"
+        className="w-full text-white font-bold py-3 rounded-lg transition-colors disabled:opacity-60"
+        style={{background: 'var(--brand)'}}
       >
         {pending ? 'Logging in…' : 'Log In'}
       </button>

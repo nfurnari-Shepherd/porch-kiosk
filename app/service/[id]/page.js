@@ -16,17 +16,18 @@ export default async function ServicePage({ params }) {
   if (!service) notFound()
 
   return (
-    <div className="min-h-full flex flex-col bg-amber-50">
-      <header className="bg-amber-600 text-white px-6 py-4 flex items-center gap-4 shadow-md">
+    <div className="min-h-full flex flex-col" style={{background: 'var(--background)'}}>
+      <header className="bg-white px-6 py-4 flex items-center gap-4 shadow-sm border-b-4" style={{borderColor: 'var(--brand)'}}>
         <Link
           href="/"
-          className="text-white bg-amber-700 hover:bg-amber-800 rounded-2xl px-5 py-2 text-xl font-bold active:scale-95 transition-transform"
+          className="rounded-2xl px-5 py-2 text-xl font-bold active:scale-95 transition-transform text-white"
+          style={{background: 'var(--brand)'}}
         >
           ← Home
         </Link>
         <div className="flex items-center gap-3 flex-1">
           <span className="text-4xl">{service.icon}</span>
-          <h1 className="text-3xl font-bold leading-tight">{service.name}</h1>
+          <h1 className="text-3xl font-bold leading-tight" style={{color: 'var(--brand)'}}>{service.name}</h1>
         </div>
       </header>
 

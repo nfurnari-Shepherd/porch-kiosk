@@ -22,7 +22,7 @@ export default function RegistrationForm({ serviceId, serviceName }) {
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="words"
-          className="w-full text-2xl border-2 border-stone-300 rounded-2xl px-5 py-4 focus:outline-none focus:border-amber-500 bg-white"
+          className="w-full text-2xl border-2 border-stone-300 rounded-2xl px-5 py-4 focus:outline-none focus:outline-none bg-white"
           placeholder="First and last name"
         />
       </div>
@@ -39,7 +39,7 @@ export default function RegistrationForm({ serviceId, serviceName }) {
           pattern="[0-9]{5}"
           maxLength={5}
           autoComplete="off"
-          className="w-full text-2xl border-2 border-stone-300 rounded-2xl px-5 py-4 focus:outline-none focus:border-amber-500 bg-white"
+          className="w-full text-2xl border-2 border-stone-300 rounded-2xl px-5 py-4 focus:outline-none focus:outline-none bg-white"
           placeholder="46201"
         />
       </div>
@@ -53,7 +53,7 @@ export default function RegistrationForm({ serviceId, serviceName }) {
           name="phone"
           inputMode="tel"
           autoComplete="off"
-          className="w-full text-2xl border-2 border-stone-300 rounded-2xl px-5 py-4 focus:outline-none focus:border-amber-500 bg-white"
+          className="w-full text-2xl border-2 border-stone-300 rounded-2xl px-5 py-4 focus:outline-none focus:outline-none bg-white"
           placeholder="317-555-1234"
         />
       </div>
@@ -65,7 +65,8 @@ export default function RegistrationForm({ serviceId, serviceName }) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full bg-amber-600 hover:bg-amber-700 active:scale-95 text-white text-2xl font-bold py-5 rounded-2xl transition-all disabled:opacity-60 mt-2"
+        className="w-full active:scale-95 text-white text-2xl font-bold py-5 rounded-2xl transition-all disabled:opacity-60 mt-2"
+        style={{background: 'var(--brand)'}}
       >
         {pending ? 'Submitting…' : 'Sign Me Up →'}
       </button>

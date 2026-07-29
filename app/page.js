@@ -13,13 +13,15 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-full flex flex-col bg-amber-50">
-      <header className="bg-amber-600 text-white text-center py-6 px-4 shadow-md">
-        <p className="text-lg font-semibold tracking-wide uppercase opacity-80">
-          Shepherd Community Center
-        </p>
-        <h1 className="text-4xl font-bold mt-1">Welcome to The Porch</h1>
-        <p className="text-xl mt-2 opacity-90">How can we help you today?</p>
+    <div className="min-h-full flex flex-col" style={{background: 'var(--background)'}}>
+      <header className="bg-white text-center py-5 px-4 shadow-sm border-b-4" style={{borderColor: 'var(--brand)'}}>
+        <img
+          src="/shepherd-logo.png"
+          alt="Shepherd Community Center"
+          className="h-12 mx-auto mb-3"
+        />
+        <h1 className="text-4xl font-extrabold" style={{color: 'var(--brand)'}}>Welcome to The Porch</h1>
+        <p className="text-xl mt-1 text-stone-500 font-semibold">How can we help you today?</p>
       </header>
 
       <main className="flex-1 p-6">
@@ -35,7 +37,10 @@ export default async function Home() {
               <Link
                 key={service.id}
                 href={`/service/${service.id}`}
-                className="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center justify-center gap-3 min-h-44 active:scale-95 transition-transform border-2 border-transparent hover:border-amber-400"
+                className="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center justify-center gap-3 min-h-44 active:scale-95 transition-all border-2 border-transparent hover:shadow-xl"
+                style={{'--tw-border-opacity': 1}}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--brand)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'transparent'}
               >
                 <span className="text-7xl leading-none">{service.icon}</span>
                 <span className="text-2xl font-bold text-stone-800 text-center leading-tight">

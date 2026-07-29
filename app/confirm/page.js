@@ -5,7 +5,7 @@ export default async function ConfirmPage({ searchParams }) {
   const { name, service } = await searchParams
 
   return (
-    <div className="min-h-full flex flex-col items-center justify-center bg-amber-50 p-8 text-center">
+    <div className="min-h-full flex flex-col items-center justify-center p-8 text-center" style={{background: 'var(--background)'}}>
       <div className="bg-white rounded-3xl shadow-xl p-10 max-w-lg w-full space-y-6">
         <div className="text-8xl">✅</div>
 
@@ -27,7 +27,8 @@ export default async function ConfirmPage({ searchParams }) {
 
         <Link
           href="/"
-          className="block bg-amber-600 hover:bg-amber-700 active:scale-95 text-white text-2xl font-bold py-5 rounded-2xl transition-all"
+          className="block active:scale-95 text-white text-2xl font-bold py-5 rounded-2xl transition-all"
+          style={{background: 'var(--brand)'}}
         >
           ← Back to Home
         </Link>
