@@ -64,7 +64,6 @@ export default async function RegistrationsPage({ searchParams }) {
               <select
                 name="service"
                 defaultValue={filterService || ''}
-                onChange="this.form.submit()"
                 className="border border-stone-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-amber-500"
               >
                 <option value="">All services</option>
