@@ -10,7 +10,7 @@ export default async function ConfirmPage({ searchParams }) {
         <div className="text-8xl">✅</div>
 
         <h1 className="text-4xl font-bold text-stone-800">
-          {name ? `Thank you, ${name}!` : 'You're all set!'}
+          {name ? `Thank you, ${name}!` : "You're all set!"}
         </h1>
 
         {service && (
