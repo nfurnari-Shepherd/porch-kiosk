@@ -139,13 +139,16 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   }
 
   if (!isOpen) {
+    const hasHistory = messages.length > 0
     return (
       <button
-        onClick={openChat}
+        onClick={hasHistory ? () => setIsOpen(true) : openChat}
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 text-white text-xl font-bold px-8 py-4 rounded-full shadow-2xl active:scale-95 transition-all"
         style={{ background: 'var(--brand)' }}
       >
-        🎙️ {lang === 'es' ? 'Hablar Conmigo' : 'Talk to Me'}
+        {hasHistory
+          ? (lang === 'es' ? '💬 Retomar Chat' : '💬 Resume Chat')
+          : (lang === 'es' ? '🎙️ Hablar Conmigo' : '🎙️ Talk to Me')}
       </button>
     )
   }
@@ -204,7 +207,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
               <Link
                 key={s.id}
                 href={`/service/${s.id}`}
-                onClick={closeChat}
+                onClick={() => setIsOpen(false)}
                 className="flex-shrink-0 bg-white rounded-2xl px-4 py-3 flex items-center gap-2 active:scale-95 transition-all shadow-lg"
               >
                 <span className="text-3xl">{s.icon}</span>
