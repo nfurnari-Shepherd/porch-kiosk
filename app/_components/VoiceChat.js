@@ -15,6 +15,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   const [messages, setMessages] = useState([])
   const [transcript, setTranscript] = useState('')
   const [matched, setMatched] = useState([])
+  const [showCheckIn, setShowCheckIn] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const messagesRef = useRef([])
   const audioCtxRef = useRef(null)
@@ -83,6 +84,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
     messagesRef.current = []
     setMessages([])
     setMatched([])
+    setShowCheckIn(false)
     setTranscript('')
     setErrorMsg('')
   }
@@ -149,6 +151,10 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
             result.serviceIds.some(id => String(id) === String(s.id))
           )
           setMatched(hits)
+        }
+
+        if (result.checkIn) {
+          setShowCheckIn(true)
         }
 
         setChatState('responding')
@@ -235,12 +241,24 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
         )}
       </div>
 
-      {matched.length > 0 && (
+      {(matched.length > 0 || showCheckIn) && (
         <div className="px-5 py-3 border-t border-white/10">
           <p className="text-white/50 text-sm mb-2 uppercase tracking-wide">
             {lang === 'es' ? 'Recursos sugeridos' : 'Suggested resources'}
           </p>
           <div className="flex gap-3 overflow-x-auto pb-1">
+            {showCheckIn && (
+              <Link
+                href="/check-in"
+                onClick={() => setIsOpen(false)}
+                className="flex-shrink-0 bg-white rounded-2xl px-5 py-3 flex items-center gap-2 active:scale-95 transition-all shadow-lg"
+              >
+                <span className="text-3xl">📋</span>
+                <span className="font-bold text-stone-800 text-lg">
+                  {lang === 'es' ? 'Registrarme' : 'Check In'}
+                </span>
+              </Link>
+            )}
             {matched.map(s => (
               <Link
                 key={s.id}
