@@ -17,6 +17,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   const [matched, setMatched] = useState([])
   const [errorMsg, setErrorMsg] = useState('')
   const messagesRef = useRef([])
+  const audioCtxRef = useRef(null)
 
   async function speak(text) {
     try {
@@ -25,14 +26,21 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, lang }),
       })
-      if (!response.ok) throw new Error('TTS request failed')
-      const blob = await response.blob()
-      const url = URL.createObjectURL(blob)
-      await new Promise((resolve) => {
-        const audio = new Audio(url)
-        audio.onended = () => { URL.revokeObjectURL(url); resolve() }
-        audio.onerror = () => { URL.revokeObjectURL(url); resolve() }
-        audio.play()
+      if (!response.ok) return
+
+      const arrayBuffer = await response.arrayBuffer()
+      const ctx = audioCtxRef.current
+      if (!ctx) return
+
+      if (ctx.state === 'suspended') await ctx.resume()
+      const audioBuffer = await ctx.decodeAudioData(arrayBuffer)
+
+      await new Promise(resolve => {
+        const source = ctx.createBufferSource()
+        source.buffer = audioBuffer
+        source.connect(ctx.destination)
+        source.onended = resolve
+        source.start(0)
       })
     } catch (err) {
       console.error('TTS error:', err)
@@ -40,6 +48,12 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   }
 
   async function openChat() {
+    // Unlock AudioContext synchronously on user gesture — must happen before any await
+    const AC = window.AudioContext || window.webkitAudioContext
+    if (AC) {
+      audioCtxRef.current = new AC()
+      await audioCtxRef.current.resume()
+    }
     setIsOpen(true)
     messagesRef.current = []
     setMessages([])
@@ -54,7 +68,6 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   }
 
   function closeChat() {
-    window.speechSynthesis.cancel()
     setIsOpen(false)
     setChatState('idle')
     messagesRef.current = []
