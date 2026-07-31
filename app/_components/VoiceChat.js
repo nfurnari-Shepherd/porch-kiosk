@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { voiceChat } from '@/lib/actions'
 
@@ -16,12 +16,23 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   const [transcript, setTranscript] = useState('')
   const [matched, setMatched] = useState([])
   const [errorMsg, setErrorMsg] = useState('')
+  const [availableVoices, setAvailableVoices] = useState([])
   const messagesRef = useRef([])
 
+  useEffect(() => {
+    function loadVoices() {
+      const v = window.speechSynthesis.getVoices()
+      if (v.length) setAvailableVoices(v)
+    }
+    loadVoices()
+    window.speechSynthesis.addEventListener('voiceschanged', loadVoices)
+    return () => window.speechSynthesis.removeEventListener('voiceschanged', loadVoices)
+  }, [])
+
   function getBestVoice(langCode) {
-    const voices = window.speechSynthesis.getVoices()
     const prefix = langCode === 'es' ? 'es' : 'en'
-    const candidates = voices.filter(v => v.lang.toLowerCase().startsWith(prefix))
+    const candidates = availableVoices.filter(v => v.lang.toLowerCase().startsWith(prefix))
+    console.log('Available voices:', candidates.map(v => `${v.name} (${v.lang})`))
     return (
       candidates.find(v => /enhanced/i.test(v.name)) ||
       candidates.find(v => /premium/i.test(v.name)) ||
