@@ -15,6 +15,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   const [messages, setMessages] = useState([])
   const [transcript, setTranscript] = useState('')
   const [matched, setMatched] = useState([])
+  const [errorMsg, setErrorMsg] = useState('')
   const messagesRef = useRef([])
 
   function speak(text) {
@@ -51,6 +52,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
     setMessages([])
     setMatched([])
     setTranscript('')
+    setErrorMsg('')
   }
 
   function startListening() {
@@ -114,6 +116,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
         setChatState('idle')
       } catch (err) {
         console.error('Voice chat error:', err)
+        setErrorMsg(`Error: ${err?.message || 'Something went wrong. Please try again.'}`)
         setChatState('idle')
       }
     }
@@ -177,6 +180,14 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
           <div className="flex justify-start">
             <div className="rounded-3xl px-5 py-3 text-white text-xl" style={{ background: 'var(--brand)', opacity: 0.6 }}>
               {lang === 'es' ? 'Pensando…' : 'Thinking…'}
+            </div>
+          </div>
+        )}
+
+        {errorMsg && (
+          <div className="flex justify-start">
+            <div className="rounded-3xl px-5 py-3 text-white text-base bg-red-600">
+              {errorMsg}
             </div>
           </div>
         )}
