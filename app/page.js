@@ -20,7 +20,14 @@ export default async function Home() {
 
   return (
     <div className="min-h-full flex flex-col" style={{background: 'var(--background)'}}>
-      <header className="bg-white text-center py-5 px-4 shadow-sm border-b-4" style={{borderColor: 'var(--brand)'}}>
+      <header className="relative bg-white text-center py-5 px-4 shadow-sm border-b-4" style={{borderColor: 'var(--brand)'}}>
+        <Link
+          href="/check-in"
+          className="absolute left-4 top-4 flex items-center gap-2 border-2 rounded-2xl px-3 py-2 text-base font-bold active:scale-95 transition-all"
+          style={{ borderColor: 'var(--brand)', color: 'var(--brand)' }}
+        >
+          📋 {lang === 'es' ? 'Ya llegué' : 'Check In'}
+        </Link>
         <img
           src="/shepherd-logo.png"
           alt="Shepherd Community Center"
@@ -63,18 +70,7 @@ export default async function Home() {
         )}
       </main>
 
-      <div className="px-6 pb-6 max-w-2xl mx-auto w-full">
-        <Link
-          href="/check-in"
-          className="flex items-center justify-center gap-3 w-full bg-white border-2 rounded-3xl shadow-md active:scale-95 transition-all py-5 px-6 text-2xl font-bold"
-          style={{ borderColor: 'var(--brand)', color: 'var(--brand)' }}
-        >
-          <span className="text-3xl">📋</span>
-          {lang === 'es' ? 'Ya llegué — Registrarme' : 'I\'m here — Check In'}
-        </Link>
-      </div>
-
-      <footer className="text-center pb-24 pt-2 text-stone-400 text-sm">
+      <footer className="text-center pb-24 pt-4 text-stone-400 text-sm">
         {t(lang, 'footer')}
       </footer>
     </div>

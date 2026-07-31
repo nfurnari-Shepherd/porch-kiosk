@@ -184,7 +184,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
     return (
       <button
         onClick={hasHistory ? () => setIsOpen(true) : openChat}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 text-white text-xl font-bold px-8 py-4 rounded-full shadow-2xl active:scale-95 transition-all"
+        className="fixed bottom-8 right-8 z-40 flex items-center gap-3 text-white text-2xl font-bold px-10 py-5 rounded-full shadow-2xl active:scale-95 transition-all"
         style={{ background: 'var(--brand)' }}
       >
         {hasHistory
