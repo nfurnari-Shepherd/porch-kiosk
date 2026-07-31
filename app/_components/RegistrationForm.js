@@ -59,6 +59,20 @@ export default function RegistrationForm({ serviceId, serviceName, lang = 'en' }
         />
       </div>
 
+      <div>
+        <label className="block text-xl font-semibold text-stone-700 mb-2">
+          {t(lang, 'emailLabel')} <span className="font-normal text-stone-400">{t(lang, 'emailOptional')}</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          inputMode="email"
+          autoComplete="off"
+          className="w-full text-2xl border-2 border-stone-300 rounded-2xl px-5 py-4 focus:outline-none bg-white"
+          placeholder={t(lang, 'emailPlaceholder')}
+        />
+      </div>
+
       {state?.error && (
         <p className="text-red-600 text-lg font-medium">{state.error}</p>
       )}

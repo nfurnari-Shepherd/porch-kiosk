@@ -23,6 +23,9 @@ export default async function ServicesAdminPage() {
             <span className="bg-amber-100 text-amber-700 font-semibold px-3 py-1 rounded-lg text-sm">
               Services
             </span>
+            <Link href="/admin/emails" className="text-stone-500 hover:text-stone-800 px-3 py-1 rounded-lg text-sm">
+              Emails
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-3">

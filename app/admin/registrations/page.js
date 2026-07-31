@@ -38,6 +38,9 @@ export default async function RegistrationsPage({ searchParams }) {
             <Link href="/admin/services" className="text-stone-500 hover:text-stone-800 px-3 py-1 rounded-lg text-sm">
               Services
             </Link>
+            <Link href="/admin/emails" className="text-stone-500 hover:text-stone-800 px-3 py-1 rounded-lg text-sm">
+              Emails
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-3">

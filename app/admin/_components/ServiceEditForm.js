@@ -92,17 +92,31 @@ export default function ServiceEditForm({ service }) {
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-stone-600 mb-1">
-          Staff Notification Number <span className="text-stone-400">(gets texted when someone signs up or checks in)</span>
-        </label>
-        <input
-          type="text"
-          name="notification_phone"
-          defaultValue={service.notification_phone || ''}
-          className="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:border-amber-500"
-          placeholder="+13175551234"
-        />
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-stone-600 mb-1">
+            Staff Notification Phone <span className="text-stone-400">(texted on sign-up & check-in)</span>
+          </label>
+          <input
+            type="text"
+            name="notification_phone"
+            defaultValue={service.notification_phone || ''}
+            className="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:border-amber-500"
+            placeholder="+13175551234"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-stone-600 mb-1">
+            Staff Notification Email <span className="text-stone-400">(emailed on sign-up & check-in)</span>
+          </label>
+          <input
+            type="email"
+            name="notification_email"
+            defaultValue={service.notification_email || ''}
+            className="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:border-amber-500"
+            placeholder="provider@example.com"
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
