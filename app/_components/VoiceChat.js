@@ -18,12 +18,27 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   const [errorMsg, setErrorMsg] = useState('')
   const messagesRef = useRef([])
 
+  function getBestVoice(langCode) {
+    const voices = window.speechSynthesis.getVoices()
+    const prefix = langCode === 'es' ? 'es' : 'en'
+    const candidates = voices.filter(v => v.lang.toLowerCase().startsWith(prefix))
+    return (
+      candidates.find(v => /enhanced/i.test(v.name)) ||
+      candidates.find(v => /premium/i.test(v.name)) ||
+      candidates.find(v => v.localService) ||
+      candidates[0] ||
+      null
+    )
+  }
+
   function speak(text) {
     return new Promise(resolve => {
       window.speechSynthesis.cancel()
       const utterance = new SpeechSynthesisUtterance(text)
       utterance.lang = lang === 'es' ? 'es-MX' : 'en-US'
       utterance.rate = 0.88
+      const voice = getBestVoice(lang)
+      if (voice) utterance.voice = voice
       utterance.onend = resolve
       utterance.onerror = resolve
       window.speechSynthesis.speak(utterance)
