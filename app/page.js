@@ -20,14 +20,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-full flex flex-col" style={{background: 'var(--background)'}}>
-      <header className="relative bg-white text-center py-5 px-4 shadow-sm border-b-4" style={{borderColor: 'var(--brand)'}}>
-        <Link
-          href="/check-in"
-          className="absolute left-4 top-4 flex items-center gap-2 border-2 rounded-2xl px-5 py-3 text-xl font-bold active:scale-95 transition-all"
-          style={{ borderColor: 'var(--brand)', color: 'var(--brand)' }}
-        >
-          📋 {lang === 'es' ? 'Ya llegué' : 'Check In'}
-        </Link>
+      <header className="bg-white text-center py-5 px-4 shadow-sm border-b-4" style={{borderColor: 'var(--brand)'}}>
         <img
           src="/shepherd-logo.png"
           alt="Shepherd Community Center"
@@ -40,7 +33,27 @@ export default async function Home() {
         </div>
       </header>
 
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 max-w-2xl mx-auto w-full">
+        <Link
+          href="/check-in"
+          className="flex items-center justify-between w-full text-white rounded-3xl shadow-lg px-7 py-5 mb-8 active:scale-95 transition-all"
+          style={{ background: 'var(--brand)' }}
+        >
+          <span className="text-3xl">📋</span>
+          <span className="text-2xl font-bold">
+            {lang === 'es' ? '¿Regresas? Regístrate aquí' : 'Returning Neighbor? Check In Here'}
+          </span>
+          <span className="text-3xl">→</span>
+        </Link>
+
+        <div className="flex items-center gap-3 mb-6">
+          <div className="flex-1 h-px bg-stone-200" />
+          <span className="text-stone-400 text-base tracking-widest flex items-center gap-1">
+            🐦 🐦 {lang === 'es' ? 'RECURSOS' : 'RESOURCES'} 🐦 🐦
+          </span>
+          <div className="flex-1 h-px bg-stone-200" />
+        </div>
+
         {(!services || services.length === 0) ? (
           <div className="flex items-center justify-center h-64">
             <p className="text-2xl text-stone-500 text-center whitespace-pre-line">
@@ -48,7 +61,7 @@ export default async function Home() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-5 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 gap-5">
             {services.map((service) => (
               <Link
                 key={service.id}
