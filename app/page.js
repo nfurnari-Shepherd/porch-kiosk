@@ -41,7 +41,7 @@ export default async function Home() {
         >
           <span className="text-3xl">📋</span>
           <span className="text-2xl font-bold">
-            {lang === 'es' ? '¿Regresas? Regístrate aquí' : 'Returning Neighbor? Check In Here'}
+            {lang === 'es' ? '¿Tienes una cita? Regístrate aquí' : 'Have an Appointment? Check In Here'}
           </span>
           <span className="text-3xl">→</span>
         </Link>

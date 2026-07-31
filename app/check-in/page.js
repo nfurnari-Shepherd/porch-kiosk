@@ -12,12 +12,12 @@ export default async function CheckInPage() {
         <div className="text-center">
           <div className="text-6xl mb-4">📋</div>
           <h1 className="text-4xl font-bold text-stone-800">
-            {lang === 'es' ? 'Registrarse' : 'Check In'}
+            {lang === 'es' ? '¿Tienes una cita?' : 'Here for an Appointment?'}
           </h1>
           <p className="text-xl text-stone-500 mt-2">
             {lang === 'es'
-              ? 'Ingresa tu nombre o número de teléfono para avisar a tu proveedor que llegaste.'
-              : 'Enter your name or phone number to let your provider know you\'re here.'}
+              ? 'Ingresa tu nombre o número de teléfono y le avisamos a tu proveedor que llegaste.'
+              : "Enter your name or phone number and we'll let your provider know you've arrived."}
           </p>
         </div>
         <CheckInForm lang={lang} />
