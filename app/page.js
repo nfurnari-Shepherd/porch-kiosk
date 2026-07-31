@@ -1,7 +1,13 @@
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 import { supabase } from '@/lib/supabase'
+import LanguageToggle from '@/app/_components/LanguageToggle'
+import { t } from '@/lib/i18n'
 
 export default async function Home() {
+  const cookieStore = await cookies()
+  const lang = cookieStore.get('lang')?.value || 'en'
+
   const { data: services, error } = await supabase
     .from('services')
     .select('*')
@@ -20,15 +26,18 @@ export default async function Home() {
           alt="Shepherd Community Center"
           className="h-12 mx-auto mb-3"
         />
-        <h1 className="text-4xl font-extrabold" style={{color: 'var(--brand)'}}>Welcome to The Porch</h1>
-        <p className="text-xl mt-1 text-stone-500 font-semibold">How can we help you today?</p>
+        <h1 className="text-4xl font-extrabold" style={{color: 'var(--brand)'}}>{t(lang, 'welcome')}</h1>
+        <p className="text-xl mt-1 text-stone-500 font-semibold">{t(lang, 'tagline')}</p>
+        <div className="flex justify-center">
+          <LanguageToggle currentLang={lang} />
+        </div>
       </header>
 
       <main className="flex-1 p-6">
         {(!services || services.length === 0) ? (
           <div className="flex items-center justify-center h-64">
-            <p className="text-2xl text-stone-500 text-center">
-              Services are being set up.<br />Please ask a staff member for help.
+            <p className="text-2xl text-stone-500 text-center whitespace-pre-line">
+              {t(lang, 'noServices')}
             </p>
           </div>
         ) : (
@@ -41,11 +50,11 @@ export default async function Home() {
               >
                 <span className="text-7xl leading-none">{service.icon}</span>
                 <span className="text-2xl font-bold text-stone-800 text-center leading-tight">
-                  {service.name}
+                  {lang === 'es' && service.name_es ? service.name_es : service.name}
                 </span>
-                {service.description && (
+                {(service.description || service.description_es) && (
                   <span className="text-base text-stone-500 text-center">
-                    {service.description}
+                    {lang === 'es' && service.description_es ? service.description_es : service.description}
                   </span>
                 )}
               </Link>
@@ -55,7 +64,7 @@ export default async function Home() {
       </main>
 
       <footer className="text-center py-4 text-stone-400 text-sm">
-        Tap a tile to get started · Ask a staff member if you need help
+        {t(lang, 'footer')}
       </footer>
     </div>
   )
