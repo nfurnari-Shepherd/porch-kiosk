@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { voiceChat } from '@/lib/actions'
 
@@ -16,44 +16,27 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   const [transcript, setTranscript] = useState('')
   const [matched, setMatched] = useState([])
   const [errorMsg, setErrorMsg] = useState('')
-  const [availableVoices, setAvailableVoices] = useState([])
   const messagesRef = useRef([])
 
-  useEffect(() => {
-    function loadVoices() {
-      const v = window.speechSynthesis.getVoices()
-      if (v.length) setAvailableVoices(v)
+  async function speak(text) {
+    try {
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, lang }),
+      })
+      if (!response.ok) throw new Error('TTS request failed')
+      const blob = await response.blob()
+      const url = URL.createObjectURL(blob)
+      await new Promise((resolve) => {
+        const audio = new Audio(url)
+        audio.onended = () => { URL.revokeObjectURL(url); resolve() }
+        audio.onerror = () => { URL.revokeObjectURL(url); resolve() }
+        audio.play()
+      })
+    } catch (err) {
+      console.error('TTS error:', err)
     }
-    loadVoices()
-    window.speechSynthesis.addEventListener('voiceschanged', loadVoices)
-    return () => window.speechSynthesis.removeEventListener('voiceschanged', loadVoices)
-  }, [])
-
-  function getBestVoice(langCode) {
-    const prefix = langCode === 'es' ? 'es' : 'en'
-    const candidates = availableVoices.filter(v => v.lang.toLowerCase().startsWith(prefix))
-    return (
-      candidates.find(v => v.name === 'Zoe (Enhanced)') ||
-      candidates.find(v => /enhanced/i.test(v.name)) ||
-      candidates.find(v => /premium/i.test(v.name)) ||
-      candidates.find(v => v.localService) ||
-      candidates[0] ||
-      null
-    )
-  }
-
-  function speak(text) {
-    return new Promise(resolve => {
-      window.speechSynthesis.cancel()
-      const utterance = new SpeechSynthesisUtterance(text)
-      utterance.lang = lang === 'es' ? 'es-MX' : 'en-US'
-      utterance.rate = 0.88
-      const voice = getBestVoice(lang)
-      if (voice) utterance.voice = voice
-      utterance.onend = resolve
-      utterance.onerror = resolve
-      window.speechSynthesis.speak(utterance)
-    })
   }
 
   async function openChat() {
