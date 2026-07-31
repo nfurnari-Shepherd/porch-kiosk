@@ -32,8 +32,8 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   function getBestVoice(langCode) {
     const prefix = langCode === 'es' ? 'es' : 'en'
     const candidates = availableVoices.filter(v => v.lang.toLowerCase().startsWith(prefix))
-    console.log('Available voices:', candidates.map(v => `${v.name} (${v.lang})`))
     return (
+      candidates.find(v => v.name === 'Zoe (Enhanced)') ||
       candidates.find(v => /enhanced/i.test(v.name)) ||
       candidates.find(v => /premium/i.test(v.name)) ||
       candidates.find(v => v.localService) ||
