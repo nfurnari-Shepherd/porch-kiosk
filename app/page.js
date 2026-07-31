@@ -63,7 +63,18 @@ export default async function Home() {
         )}
       </main>
 
-      <footer className="text-center pb-24 pt-4 text-stone-400 text-sm">
+      <div className="px-6 pb-6 max-w-2xl mx-auto w-full">
+        <Link
+          href="/check-in"
+          className="flex items-center justify-center gap-3 w-full bg-white border-2 rounded-3xl shadow-md active:scale-95 transition-all py-5 px-6 text-2xl font-bold"
+          style={{ borderColor: 'var(--brand)', color: 'var(--brand)' }}
+        >
+          <span className="text-3xl">📋</span>
+          {lang === 'es' ? 'Ya llegué — Registrarme' : 'I\'m here — Check In'}
+        </Link>
+      </div>
+
+      <footer className="text-center pb-24 pt-2 text-stone-400 text-sm">
         {t(lang, 'footer')}
       </footer>
     </div>
