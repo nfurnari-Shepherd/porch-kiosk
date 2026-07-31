@@ -23,7 +23,7 @@ export default async function Home() {
       <header className="relative bg-white text-center py-5 px-4 shadow-sm border-b-4" style={{borderColor: 'var(--brand)'}}>
         <Link
           href="/check-in"
-          className="absolute left-4 top-4 flex items-center gap-2 border-2 rounded-2xl px-3 py-2 text-base font-bold active:scale-95 transition-all"
+          className="absolute left-4 top-4 flex items-center gap-2 border-2 rounded-2xl px-5 py-3 text-xl font-bold active:scale-95 transition-all"
           style={{ borderColor: 'var(--brand)', color: 'var(--brand)' }}
         >
           📋 {lang === 'es' ? 'Ya llegué' : 'Check In'}
