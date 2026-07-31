@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { supabase } from '@/lib/supabase'
 import LanguageToggle from '@/app/_components/LanguageToggle'
-import VoiceChat from '@/app/_components/VoiceChat'
 import { t } from '@/lib/i18n'
 
 export default async function Home() {
@@ -67,8 +66,6 @@ export default async function Home() {
       <footer className="text-center pb-24 pt-4 text-stone-400 text-sm">
         {t(lang, 'footer')}
       </footer>
-
-      <VoiceChat services={services || []} lang={lang} />
     </div>
   )
 }
