@@ -18,6 +18,7 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
   const [errorMsg, setErrorMsg] = useState('')
   const messagesRef = useRef([])
   const audioCtxRef = useRef(null)
+  const recognitionRef = useRef(null)
 
   // Fetch TTS audio and decode it — returns AudioBuffer or null
   async function fetchAudio(text) {
@@ -86,6 +87,10 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
     setErrorMsg('')
   }
 
+  function stopListening() {
+    recognitionRef.current?.stop()
+  }
+
   function startListening() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SR) {
@@ -96,8 +101,9 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
     let interim = ''
     const recognition = new SR()
     recognition.lang = lang === 'es' ? 'es-MX' : 'en-US'
-    recognition.continuous = false
+    recognition.continuous = true
     recognition.interimResults = true
+    recognitionRef.current = recognition
 
     recognition.onstart = () => setChatState('listening')
 
@@ -106,11 +112,12 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
       for (let i = 0; i < event.results.length; i++) {
         text += event.results[i][0].transcript
       }
-      interim = text
-      setTranscript(text)
+      interim = text.trim()
+      setTranscript(interim)
     }
 
     recognition.onend = async () => {
+      recognitionRef.current = null
       setTranscript('')
       const final = interim.trim()
       if (!final) { setChatState('idle'); return }
@@ -258,16 +265,25 @@ export default function VoiceChat({ services = [], lang = 'en' }) {
         >
           ✕
         </button>
-        <button
-          onClick={startListening}
-          disabled={chatState !== 'idle'}
-          className={`flex-1 flex items-center justify-center gap-3 text-white text-xl font-bold py-4 rounded-2xl transition-all disabled:opacity-50 ${
-            chatState === 'listening' ? 'animate-pulse' : 'active:scale-95'
-          }`}
-          style={{ background: 'var(--brand)' }}
-        >
-          {buttonLabel[chatState]}
-        </button>
+
+        {chatState === 'listening' ? (
+          <button
+            onClick={stopListening}
+            className="flex-1 flex items-center justify-center gap-3 text-white text-xl font-bold py-4 rounded-2xl active:scale-95 transition-all"
+            style={{ background: '#dc2626' }}
+          >
+            ⏹ {lang === 'es' ? 'Terminé — Enviar' : 'Done — Send'}
+          </button>
+        ) : (
+          <button
+            onClick={startListening}
+            disabled={chatState !== 'idle'}
+            className="flex-1 flex items-center justify-center gap-3 text-white text-xl font-bold py-4 rounded-2xl active:scale-95 transition-all disabled:opacity-50"
+            style={{ background: 'var(--brand)' }}
+          >
+            {buttonLabel[chatState]}
+          </button>
+        )}
       </div>
     </div>
   )
