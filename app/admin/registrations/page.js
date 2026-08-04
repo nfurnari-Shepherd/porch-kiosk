@@ -61,6 +61,14 @@ export default async function RegistrationsPage({ searchParams }) {
             {registrations?.length || 0} registration{registrations?.length !== 1 ? 's' : ''}
             {filterService && ` · ${filterService}`}
           </h2>
+          <a
+            href="https://docs.google.com/spreadsheets/d/1f7aUvUi-pofnh7IU4p_XMoWlWn04cBpzVLMnLpaN-1g/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-emerald-600 hover:text-emerald-800 flex items-center gap-1"
+          >
+            📊 Open Google Sheet →
+          </a>
           <div className="flex items-center gap-2">
             <label className="text-sm text-stone-500">Filter by service:</label>
             <form>
