@@ -41,9 +41,17 @@ export default async function ServicesAdminPage() {
       </header>
 
       <main className="p-6 max-w-3xl mx-auto space-y-4">
-        <p className="text-sm text-stone-500">
-          Click a service to edit its name, icon, description, phone, hours, and what to bring. Changes appear on the kiosk immediately.
-        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-stone-500">
+            Click a service to edit. Changes appear on the kiosk immediately.
+          </p>
+          <Link
+            href="/admin/services/new"
+            className="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors"
+          >
+            + New Service
+          </Link>
+        </div>
 
         <div className="bg-white rounded-2xl shadow overflow-hidden">
           {(!services || services.length === 0) ? (

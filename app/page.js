@@ -85,6 +85,9 @@ export default async function Home() {
 
       <footer className="text-center pb-24 pt-4 text-stone-400 text-sm">
         {t(lang, 'footer')}
+        <div className="mt-3">
+          <Link href="/admin" className="text-stone-300 text-xs px-4 py-2">Staff</Link>
+        </div>
       </footer>
     </div>
   )
