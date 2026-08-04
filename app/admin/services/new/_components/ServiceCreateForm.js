@@ -33,6 +33,18 @@ export default function ServiceCreateForm() {
 
       <div>
         <label className="block text-sm font-medium text-stone-600 mb-1">
+          Icon Image URL <span className="text-stone-400">(optional — paste an image link to override the emoji)</span>
+        </label>
+        <input
+          type="url"
+          name="icon_url"
+          className="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:border-amber-500"
+          placeholder="https://imgur.com/example.png"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-stone-600 mb-1">
           Short Description <span className="text-stone-400">(shown on home tile)</span>
         </label>
         <input

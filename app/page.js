@@ -68,7 +68,10 @@ export default async function Home() {
                 href={`/service/${service.id}`}
                 className="service-card bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center justify-center gap-3 min-h-44 active:scale-95 transition-all border-2 border-transparent hover:shadow-xl"
               >
-                <span className="text-7xl leading-none">{service.icon}</span>
+                {service.icon_url
+                  ? <img src={service.icon_url} alt={service.name} className="w-16 h-16 object-contain" />
+                  : <span className="text-7xl leading-none">{service.icon}</span>
+                }
                 <span className="text-2xl font-bold text-stone-800 text-center leading-tight">
                   {lang === 'es' && service.name_es ? service.name_es : service.name}
                 </span>

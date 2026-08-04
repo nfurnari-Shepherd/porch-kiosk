@@ -36,7 +36,10 @@ export default async function ServicePage({ params }) {
           {t(lang, 'backHome')}
         </Link>
         <div className="flex items-center gap-3 flex-1">
-          <span className="text-4xl">{service.icon}</span>
+          {service.icon_url
+            ? <img src={service.icon_url} alt={name} className="w-10 h-10 object-contain" />
+            : <span className="text-4xl">{service.icon}</span>
+          }
           <h1 className="text-3xl font-bold leading-tight" style={{color: 'var(--brand)'}}>{name}</h1>
         </div>
       </header>
